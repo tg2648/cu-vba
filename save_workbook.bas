@@ -11,7 +11,7 @@ filecount = 1
 old_filename = Replace(ActiveWorkbook.Name, ".xlsx", "")
 new_filename = old_filename & ".Old.v" & filecount & ".xlsx"
 
-filepath = ActiveWorkbook.Path & "\Archive\"
+filepath = ActiveWorkbook.Path & "\_Archive\"
 
 'Loop through the counts and figure out which version number is the last
 Do While ((Dir(filepath & new_filename)) <> Empty)
@@ -34,6 +34,6 @@ End If
 ActiveWorkbook.Save
 ActiveWorkbook.SaveCopyAs Filename:=filepath & new_filename
     
-MsgBox "New copy saved in Archive\" & new_filename
+MsgBox "New copy saved in _Archive\" & new_filename
 
 End Sub
