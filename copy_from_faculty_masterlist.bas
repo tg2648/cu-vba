@@ -59,6 +59,8 @@ Sub copy_from_faculty_masterlist()
                 deptName = "LAIC"
             Case Is = "CE"
                 deptName = "SPS"
+            Case Is = "AAADS"
+                deptName = "AFAM"
             End Select
             
             ' Copy entire sheet
@@ -144,6 +146,8 @@ Sub copy_from_faculty_masterlist()
                     divName = "NS"
                 Case Is = "STAT"
                     divName = "NS"
+                Case Is = "AFAM"
+                    divName = "SS"
                 Case Is = "ANTH"
                     divName = "SS"
                 Case Is = "ECON"
