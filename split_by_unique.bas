@@ -49,9 +49,18 @@ For Each unique In d.keys
     data_range.AutoFilter Field:=column, Criteria1:=unique
     ' Add the sheet (same name as table name) to the new workbook
     new_workbook.Sheets.Add(After:=Sheets(Sheets.Count)).Name = table_name
-    ' Copy the filtered data
-    data_range.SpecialCells(xlCellTypeVisible).Copy Destination:=new_workbook.Sheets(table_name).Cells(1, 1)
-
+    
+    ' Copy filtered data
+    ' data_range.SpecialCells(xlCellTypeVisible).Copy Destination:=new_workbook.Sheets(table_name).Cells(1, 1)
+    
+    ' Copy filtered data preserving column widths (kind of)
+    data_range.SpecialCells(xlCellTypeVisible).Copy
+    With new_workbook.Sheets(table_name).Cells(1, 1)
+        .PasteSpecial Paste:=xlPasteFormats, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+        .PasteSpecial Paste:=xlPasteColumnWidths, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+        .PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    End With
+    
     ' Autofit columns in new workbook
     new_workbook.Sheets(table_name).Cells.Select
     new_workbook.Sheets(table_name).Cells.EntireColumn.AutoFit
