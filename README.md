@@ -1,3 +1,3 @@
 # cu-vba
 
-VBA Scripts
+Collection of VBA scripts to improve productivity in Excel.
