@@ -17,36 +17,41 @@ Sub Save_Waitlist()
     Dim filepath As String
     Dim current_date As String
     Dim current_time As String
-    
+
     ' Create new sheet and paste classes information.
-    
+
     Sheets.Add After:=ActiveSheet
     ActiveSheet.PasteSpecial Format:="HTML", Link:=False, DisplayAsIcon:= _
         False, NoHTMLFormatting:=True
     Range("A1").Select
     Selection.End(xlDown).Select
     Selection.ClearContents
-    
+
     ' File from the SSOL is in the form "WaitLists_<term>.xls"
+    ' At some point the download from SSOL changed to a csv file
+    ' Assume the extension can vary
     current_name = Replace(ActiveWorkbook.Name, ".xls", "")
+    current_name = Replace(current_name, ".xlsx", "")
+    current_name = Replace(current_name, ".csv", "")
+
     filepath = ActiveWorkbook.Path
-    
+
     current_date = Format(Now, "yyyy-mm-dd")
     current_time = Format(Now, "Medium Time")
     current_time = Replace(current_time, ":", "")
     current_time = Replace(current_time, " ", "")
-    
+
     ' Append current time and date to the name
     new_name = filepath & "\" & current_date & "_" & current_name & "_" & current_time & ".xlsx"
-    
+
     ' Save as default workbook because the SSOL file is just a text file with a .xls extention
     ActiveWorkbook.SaveAs Filename:=new_name, FileFormat:=xlWorkbookDefault
-    
+
     Worksheets(1).Name = "Students" ' First from the left
     Worksheets(2).Name = "Classes"  ' Second from the left
-    
+
     ActiveWorkbook.Save
-    
+
     MsgBox "Saved as " & current_date & "_" & current_name & "_" & current_time & ".xlsx"
-    
+
 End Sub
